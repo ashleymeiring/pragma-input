@@ -17,8 +17,8 @@ describe('PragmaInput Tests', function() {
 
     it('attached, ensure initialization functions called', function() {
         // Arrange
-        let updateChildrenIdSpy = sinon.spy(pragmaInput, "updateChildrenId");
-        let setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
+        const updateChildrenIdSpy = sinon.spy(pragmaInput, "updateChildrenId");
+        const setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
 
         // Act
         pragmaInput.attached();
@@ -34,7 +34,7 @@ describe('PragmaInput Tests', function() {
     it('lookupIdChanged, lookupId false, do not show button', function() {
         // Arrange
         pragmaInput.lookupId = null;
-        let setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
+        const setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
 
         // Act
         pragmaInput.lookupIdChanged();
@@ -48,7 +48,7 @@ describe('PragmaInput Tests', function() {
     it('lookupIdChanged, lookupId true, show button', function() {
         // Arrange
         pragmaInput.lookupId = "some lookup id";
-        let setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
+        const setLookupButtonVisiblitySpy = sinon.spy(pragmaInput, "setLookupButtonVisiblity");
 
         // Act
         pragmaInput.lookupIdChanged();
@@ -79,10 +79,10 @@ describe('PragmaInput Tests', function() {
             }
         };
 
-        let labelSpy = sinon.spy(pragmaInput.element.children.label, "setAttribute");
-        let inputSpy = sinon.spy(pragmaInput.element.children.input, "setAttribute");
-        let buttonSpy = sinon.spy(pragmaInput.element.children.button, "setAttribute");
-        let descriptorSpy = sinon.spy(pragmaInput.element.children.descriptor, "setAttribute");
+        const labelSpy = sinon.spy(pragmaInput.element.children.label, "setAttribute");
+        const inputSpy = sinon.spy(pragmaInput.element.children.input, "setAttribute");
+        const buttonSpy = sinon.spy(pragmaInput.element.children.button, "setAttribute");
+        const descriptorSpy = sinon.spy(pragmaInput.element.children.descriptor, "setAttribute");
 
         // Act
         pragmaInput.updateChildrenId();
@@ -101,8 +101,59 @@ describe('PragmaInput Tests', function() {
         descriptorSpy.restore();
     });
 
-    it('setLookupButtonVisiblity, show button');
+    it('setLookupButtonVisiblity, show button', function() {
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+                "test-button": {
+                    setAttribute(attribute: string, value: string) {},
+                    hasAttribute(attribute: string) {
+                        return true;
+                    },
+                    removeAttribute(attribute: string) {}
+                }
+            }
+        };
 
-    it('setLookupButtonVisiblity, hide button');
+        let setAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "setAttribute");
+        let hasAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "hasAttribute");
+        let removeAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "removeAttribute");
+
+        // Act
+        pragmaInput.setLookupButtonVisiblity(true);
+
+        // Assert
+        assert(setAttributeSpy.withArgs("aria-hidden", false).calledOnce, "aria-hidden should be false");
+        assert(hasAttributeSpy.withArgs("hidden").calledOnce, "check if element has hidden attribute should be called once");
+        assert(removeAttributeSpy.withArgs("hidden").calledOnce, "remove attribute should have been called to remove hidden attribute");
+
+        setAttributeSpy.restore();
+        hasAttributeSpy.restore();
+        removeAttributeSpy.restore();
+    });
+
+    it('setLookupButtonVisiblity, hide button', function() {
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+                "test-button": {
+                    setAttribute(attribute: string, value: string) {},
+                }
+            }
+        };
+
+        let setAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "setAttribute");
+
+        // Act
+        pragmaInput.setLookupButtonVisiblity(false);
+
+        // Assert
+        assert(setAttributeSpy.withArgs("aria-hidden", true).calledOnce, "aria-hidden should be true");
+        assert(setAttributeSpy.withArgs("hidden", "hidden").calledOnce, "hidden attribute should be set to hidden");
+
+        setAttributeSpy.restore();
+    });
 });
 
