@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import 'aurelia-polyfills';
 import {Welcome} from './../../../src/views/welcome/welcome';
 
 describe('Welcome Tests', function() {

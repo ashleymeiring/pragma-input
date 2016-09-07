@@ -29,12 +29,12 @@ describe('App Tests', function() {
         expect(configuredMap.length).to.be.equal(1, 'expected config map to contain 1 item');
 
         describe('testing routes', function() {
-           it ('Welcome', function() {
-               expect(configuredMap[0].title === "Welcome");
-               expect(configuredMap[0].nav === "true");
-               expect(configuredMap[0].moduleId === "views/welcome/welcome");
-               expect(configuredMap[0].name === "welcome");
-           });
+            it ('Welcome', function() {
+                expect(configuredMap[0].title === "Welcome");
+                expect(configuredMap[0].nav === "true");
+                expect(configuredMap[0].moduleId === "views/welcome/welcome");
+                expect(configuredMap[0].name === "welcome");
+            });
         });
     });
 });
