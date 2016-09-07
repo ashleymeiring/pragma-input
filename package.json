@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "Johan Rabie",
   "license": "ISC",
@@ -18,5 +15,14 @@
       "aurelia-framework": "npm:aurelia-framework@^1.0.1"
     },
     "devDependencies": {}
-  }
+  },
+  "scripts": {
+    "audit": "gulp test:everything && gulp test:generate-report",
+    "build": "gulp build:all",
+    "run": "gulp serve",
+    "test": "gulp test",
+    "test:ui": "gulp test:e2e",
+    "watch:all": "gulp watch:all",
+    "watch:ui": "gulp watch:ui"
+  },
 }

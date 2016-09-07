@@ -1,3 +1,23 @@
 <template>
+    <require from="./../../components/pragma-input/pragma-input"></require>
     <h1>Welcome</h1>
+
+    <pragma-input
+            id="edtWorkOrder"
+            value.two-way="workOrderValue"
+            label="Work Order Code"
+            descriptor="The code of work orders"
+            lookup-id="somelookupid">
+    </pragma-input>
+
+    <pragma-input
+            id="edtAssetCode"
+            value.two-way="assetValue"
+            label="Asset Code"
+            descriptor="The code of assets">
+    </pragma-input>
+
+    <h3>Display Values</h3>
+    <div id="woCodeDisplay">${workOrderValue}</div>
+    <div id="assetCodeDisplay">${assetValue}</div>
 </template>
