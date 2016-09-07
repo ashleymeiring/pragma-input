@@ -1,0 +1,22 @@
+{
+  "name": "@pragmaproducts/pragma-input",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Johan Rabie",
+  "license": "ISC",
+  "devDependencies": {
+    "build-utilities": "0.0.80"
+  },
+  "jspm": {
+    "dependencies": {
+      "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0",
+      "aurelia-framework": "npm:aurelia-framework@^1.0.1"
+    },
+    "devDependencies": {}
+  }
+}
