@@ -60,16 +60,16 @@ export class PragmaInput {
         descriptorElement.setAttribute("id", idDescriptor);
     }
 
-    setLookupButtonVisiblity(isVisible: boolean) {
+    setLookupButtonVisiblity(isVisible: boolean): boolean {
         if (!this.element.children) {
-            return;
+            return false;
         }
 
         const buttonElement = this.element.children[`${this.id}-button`];
 
         // Button does not yet exist in the visual tree.
         if (!buttonElement) {
-            return;
+            return false;
         }
 
         buttonElement.setAttribute("aria-hidden", !isVisible);
@@ -82,5 +82,7 @@ export class PragmaInput {
         else {
             buttonElement.setAttribute("hidden", "hidden")
         }
+
+        return true;
     }
 }

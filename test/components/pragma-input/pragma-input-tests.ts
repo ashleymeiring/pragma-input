@@ -121,12 +121,13 @@ describe('PragmaInput Tests', function() {
         let removeAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "removeAttribute");
 
         // Act
-        pragmaInput.setLookupButtonVisiblity(true);
+        const result = pragmaInput.setLookupButtonVisiblity(true);
 
         // Assert
         assert(setAttributeSpy.withArgs("aria-hidden", false).calledOnce, "aria-hidden should be false");
         assert(hasAttributeSpy.withArgs("hidden").calledOnce, "check if element has hidden attribute should be called once");
         assert(removeAttributeSpy.withArgs("hidden").calledOnce, "remove attribute should have been called to remove hidden attribute");
+        assert(result, 'expected setLookupButtonVisibility to return true');
 
         setAttributeSpy.restore();
         hasAttributeSpy.restore();
@@ -147,13 +148,29 @@ describe('PragmaInput Tests', function() {
         let setAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "setAttribute");
 
         // Act
-        pragmaInput.setLookupButtonVisiblity(false);
+        const result = pragmaInput.setLookupButtonVisiblity(false);
 
         // Assert
         assert(setAttributeSpy.withArgs("aria-hidden", true).calledOnce, "aria-hidden should be true");
         assert(setAttributeSpy.withArgs("hidden", "hidden").calledOnce, "hidden attribute should be set to hidden");
+        assert(result, 'expected setLookupButtonVisibility to return true');
 
         setAttributeSpy.restore();
     });
+
+    it ("setLookupButtonVisiblity, no button", function() {
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+            }
+        };
+
+        // Act
+        const result = pragmaInput.setLookupButtonVisiblity(true);
+
+        // Assert
+        assert(!result, 'expected setLookupButtonVisibility to return false');
+    })
 });
 
