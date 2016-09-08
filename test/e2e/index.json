@@ -6,6 +6,61 @@
   "steps": [
     {
       "open": ""
+    },
+    {
+      "wait": {
+        "target": "body",
+        "attribute": "aria-busy",
+        "text": "false"
+      }
+    },
+    {
+      "hasElement": "edtWorkOrder-label"
+    },
+    {
+      "hasElement": "edtWorkOrder-input"
+    },
+    {
+      "hasElement": "edtWorkOrder-button"
+    },
+    {
+      "hasElement": "edtWorkOrder-descriptor"
+    },
+    {
+      "hasElement": "edtAssetCode-label"
+    },
+    {
+      "hasElement": "edtAssetCode-input"
+    },
+    {
+      "hasElement": "edtAssetCode-button"
+    },
+    {
+      "hasElement": "edtAssetCode-descriptor"
+    },
+    {
+      "type": {
+        "text": "Text1",
+        "target": "edtWorkOrder-input"
+      }
+    },
+    {
+      "wait": {
+        "text": "Text1",
+        "target": "woCodeDisplay"
+      }
+    },
+    {
+      "type": {
+        "text": "Text2",
+        "target": "edtAssetCode-input"
+      }
+    },
+    {
+      "wait": {
+        "text": "Text2",
+        "target": "assetCodeDisplay"
+      }
     }
   ]
 }
