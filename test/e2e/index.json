@@ -9,9 +9,7 @@
     },
     {
       "wait": {
-        "target": "body",
-        "attribute": "aria-busy",
-        "text": "false"
+        "target": "edtWorkOrder"
       }
     },
     {
