@@ -9,7 +9,7 @@
   "devDependencies": {
     "aurelia-polyfills": "^1.1.0",
     "aurelia-testing": "^1.0.0-beta.2.0.0",
-    "build-utilities": "0.0.89"
+    "build-utilities": "0.0.91"
   },
   "jspm": {
     "dependencies": {
