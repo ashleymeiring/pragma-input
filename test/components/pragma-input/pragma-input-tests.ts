@@ -225,6 +225,44 @@ describe('PragmaInput Tests', function() {
         expect(pragmaInput.element).to.be.null;
 
         removeEventListenerSpy.restore()
+    });
+
+    it("errorMessageChanged, updateHasError = false", function() {
+        // Arrange
+        pragmaInput.errorMessage = null;
+        pragmaInput.updateDescriptor = function(){};
+        pragmaInput.updateHasError = function(hasError){};
+        const updateDescriptorSpy = sinon.spy(pragmaInput, "updateDescriptor");
+        const updateHasErrorSpy = sinon.spy(pragmaInput, "updateHasError");
+
+        // Act
+        pragmaInput.errorMessageChanged();
+
+        // Assert
+        expect(updateDescriptorSpy.calledOnce, "expected updateDescriptor to be called once");
+        expect(updateHasErrorSpy.withArgs(false).calledOnce, "expected updateHasError to be called once with parameter false");
+
+        updateDescriptorSpy.restore();
+        updateHasErrorSpy.restore();
+    });
+
+    it("errorMessageChanged, updateHasError = true", function() {
+        // Arrange
+        pragmaInput.errorMessage = "error";
+        pragmaInput.updateDescriptor = function(){};
+        pragmaInput.updateHasError = function(hasError){};
+        const updateDescriptorSpy = sinon.spy(pragmaInput, "updateDescriptor");
+        const updateHasErrorSpy = sinon.spy(pragmaInput, "updateHasError");
+
+        // Act
+        pragmaInput.errorMessageChanged();
+
+        // Assert
+        expect(updateDescriptorSpy.calledOnce, "expected updateDescriptor to be called once");
+        expect(updateHasErrorSpy.withArgs(true).calledOnce, "expected updateHasError to be called once with parameter true");
+
+        updateDescriptorSpy.restore();
+        updateHasErrorSpy.restore();
     })
 });
 
