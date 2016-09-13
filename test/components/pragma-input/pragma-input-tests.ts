@@ -3,6 +3,11 @@ import * as sinon from 'sinon';
 import 'aurelia-polyfills';
 import {PragmaInput} from './../../../src/components/pragma-input/pragma-input';
 
+declare var global;
+
+(<any>global).Event = class Event {
+};
+
 describe('PragmaInput Tests', function() {
     var pragmaInput;
 
@@ -67,11 +72,19 @@ describe('PragmaInput Tests', function() {
                 label: {
                     setAttribute(attribute: string, value: string) {}
                 },
-                input: {
-                    setAttribute(attribute: string, value: string) {}
-                },
-                button: {
-                    setAttribute(attribute: string, value: string) {}
+                "lookup-container": {
+                    children: {
+                        input: {
+                            setAttribute(attribute: string, value: string) {
+                            }
+                        },
+                        button: {
+                            setAttribute(attribute: string, value: string) {
+                            },
+                            addEventListener(event: string, callback: any) {
+                            }
+                        }
+                    }
                 },
                 descriptor: {
                     setAttribute(attribute: string, value: string) {}
@@ -80,9 +93,10 @@ describe('PragmaInput Tests', function() {
         };
 
         const labelSpy = sinon.spy(pragmaInput.element.children.label, "setAttribute");
-        const inputSpy = sinon.spy(pragmaInput.element.children.input, "setAttribute");
-        const buttonSpy = sinon.spy(pragmaInput.element.children.button, "setAttribute");
+        const inputSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children.input, "setAttribute");
+        const buttonSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children.button, "setAttribute");
         const descriptorSpy = sinon.spy(pragmaInput.element.children.descriptor, "setAttribute");
+        const addEventListenerSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children.button, "addEventListener")
 
         // Act
         pragmaInput.updateChildrenId();
@@ -94,11 +108,13 @@ describe('PragmaInput Tests', function() {
         assert(inputSpy.withArgs("aria-describedby", "test-descriptor").calledOnce, "input described by should be test-descriptor");
         assert(buttonSpy.withArgs("id", "test-button").calledOnce, "button id should be test-button");
         assert(descriptorSpy.withArgs("id", "test-descriptor").calledOnce, "descriptor id should be set to test-descriptor");
+        assert(addEventListenerSpy.calledOnce, "addEventListener on button should be called once");
 
         labelSpy.restore();
         inputSpy.restore();
         buttonSpy.restore();
         descriptorSpy.restore();
+        addEventListenerSpy.restore();
     });
 
     it('setLookupButtonVisiblity, show button', function() {
@@ -106,19 +122,25 @@ describe('PragmaInput Tests', function() {
         pragmaInput.id = "test";
         pragmaInput.element = {
             children: {
-                "test-button": {
-                    setAttribute(attribute: string, value: string) {},
-                    hasAttribute(attribute: string) {
-                        return true;
-                    },
-                    removeAttribute(attribute: string) {}
+                "lookup-container": {
+                    children: {
+                        "test-button": {
+                            setAttribute(attribute: string, value: string) {
+                            },
+                            hasAttribute(attribute: string) {
+                                return true;
+                            },
+                            removeAttribute(attribute: string) {
+                            }
+                        }
+                    }
                 }
             }
         };
 
-        let setAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "setAttribute");
-        let hasAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "hasAttribute");
-        let removeAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "removeAttribute");
+        let setAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "setAttribute");
+        let hasAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "hasAttribute");
+        let removeAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "removeAttribute");
 
         // Act
         const result = pragmaInput.setLookupButtonVisiblity(true);
@@ -139,13 +161,17 @@ describe('PragmaInput Tests', function() {
         pragmaInput.id = "test";
         pragmaInput.element = {
             children: {
-                "test-button": {
-                    setAttribute(attribute: string, value: string) {},
+                "lookup-container": {
+                    children: {
+                        "test-button": {
+                            setAttribute(attribute: string, value: string) {},
+                        }
+                    }
                 }
             }
         };
 
-        let setAttributeSpy = sinon.spy(pragmaInput.element.children["test-button"], "setAttribute");
+        let setAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "setAttribute");
 
         // Act
         const result = pragmaInput.setLookupButtonVisiblity(false);
@@ -157,20 +183,5 @@ describe('PragmaInput Tests', function() {
 
         setAttributeSpy.restore();
     });
-
-    it ("setLookupButtonVisiblity, no button", function() {
-        // Arrange
-        pragmaInput.id = "test";
-        pragmaInput.element = {
-            children: {
-            }
-        };
-
-        // Act
-        const result = pragmaInput.setLookupButtonVisiblity(true);
-
-        // Assert
-        assert(!result, 'expected setLookupButtonVisibility to return false');
-    })
 });
 
