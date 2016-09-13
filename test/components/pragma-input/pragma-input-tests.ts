@@ -171,7 +171,7 @@ describe('PragmaInput Tests', function() {
             }
         };
 
-        let setAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "setAttribute");
+        const setAttributeSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "setAttribute");
 
         // Act
         const result = pragmaInput.setLookupButtonVisiblity(false);
@@ -183,5 +183,48 @@ describe('PragmaInput Tests', function() {
 
         setAttributeSpy.restore();
     });
+
+    it('detached', function() {
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+                "lookup-container": {
+                    children: {
+                        "test-button": {
+                            removeEventListener(event: string, callback: any) {},
+                        }
+                    }
+                }
+            }
+        };
+
+        pragmaInput.lookupEvent = {};
+        pragmaInput.errorMessage = {};
+        pragmaInput.lookupId = {};
+        pragmaInput.descriptor = {};
+        pragmaInput.label = {};
+        pragmaInput.value = {};
+        pragmaInput.descriptorBackup = {};
+
+        const removeEventListenerSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-button"], "removeEventListener");
+
+        // Act
+        pragmaInput.detached();
+
+        // Assert
+        assert(removeEventListenerSpy.calledOnce, "removeEventListener should be called once");
+
+        expect(pragmaInput.errorMessage).to.be.null;
+        expect(pragmaInput.lookupId).to.be.null;
+        expect(pragmaInput.id).to.be.null;
+        expect(pragmaInput.descriptor).to.be.null;
+        expect(pragmaInput.label).to.be.null;
+        expect(pragmaInput.value).to.be.null;
+        expect(pragmaInput.descriptorBackup).to.be.null;
+        expect(pragmaInput.element).to.be.null;
+
+        removeEventListenerSpy.restore()
+    })
 });
 
