@@ -2,4 +2,22 @@
 
 pragma-input {
   margin-bottom: 1rem;
+  display: block;
+
+  label {
+    color: deeppink;
+  }
+}
+
+div.has-error {
+  color: red;
+}
+
+input {
+  transition: 0.2s;
+}
+
+input.has-error {
+  background: lightpink;
+  border-color: red;
 }

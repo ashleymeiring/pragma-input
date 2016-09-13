@@ -2,7 +2,11 @@
     <require from="./pragma-input.css" as="scoped"></require>
 
     <label id="label" for="input">${label}</label>
-    <input id="input" type="text" value.two-way="value" aria-describedby="descriptor" aria-labelledby="label"></label>
-    <button id="button" aria-label="lookup" aria-hidden="true" hidden="hidden"></button>
+
+    <div id="lookup-container">
+        <input id="input" type="text" value.two-way="value" aria-describedby="descriptor" aria-labelledby="label"></input>
+        <button id="button" aria-label="lookup" aria-hidden="true" hidden="hidden"></button>
+    </div>
+
     <div id="descriptor">${descriptor}</div>
 </template>
