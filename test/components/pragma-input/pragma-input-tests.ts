@@ -263,6 +263,133 @@ describe('PragmaInput Tests', function() {
 
         updateDescriptorSpy.restore();
         updateHasErrorSpy.restore();
-    })
+    });
+
+    it ("updateHasError, true", function(){
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+                "lookup-container": {
+                    children: {
+                        "test-input": {
+                            classList: {
+                                add(className) {},
+                            }
+                        }
+                    }
+                },
+                "test-descriptor": {
+                    classList: {
+                        add(className) {},
+                    }
+                }
+            }
+        };
+
+        const inputAddSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-input"].classList, "add");
+        const descriptorAddSpy = sinon.spy(pragmaInput.element.children["test-descriptor"].classList, "add");
+
+        // Act
+        pragmaInput.updateHasError(true);
+
+        // Assert
+        assert(inputAddSpy.withArgs("has-error").calledOnce);
+        assert(descriptorAddSpy.withArgs("has-error").calledOnce);
+
+        inputAddSpy.restore();
+        descriptorAddSpy.restore();
+    });
+
+    it ("updateHasError, false", function(){
+        // Arrange
+        pragmaInput.id = "test";
+        pragmaInput.element = {
+            children: {
+                "lookup-container": {
+                    children: {
+                        "test-input": {
+                            classList: {
+                                remove(className) {},
+                            }
+                        }
+                    }
+                },
+                "test-descriptor": {
+                    classList: {
+                        remove(className) {},
+                    }
+                }
+            }
+        };
+
+        const inputAddSpy = sinon.spy(pragmaInput.element.children["lookup-container"].children["test-input"].classList, "remove");
+        const descriptorAddSpy = sinon.spy(pragmaInput.element.children["test-descriptor"].classList, "remove");
+
+        // Act
+        pragmaInput.updateHasError(false);
+
+        // Assert
+        assert(inputAddSpy.withArgs("has-error").calledOnce);
+        assert(descriptorAddSpy.withArgs("has-error").calledOnce);
+
+        inputAddSpy.restore();
+        descriptorAddSpy.restore();
+    });
+
+    it("lookupButtonClicked", function() {
+        // Arrange
+        pragmaInput.lookupEvent = {};
+        pragmaInput.element = {
+            dispatchEvent(any) {}
+        };
+
+        const dispatchEventSpy = sinon.spy(pragmaInput.element, "dispatchEvent");
+
+        // Act
+        pragmaInput.lookupButtonClicked();
+
+        // Assert
+        assert(dispatchEventSpy.withArgs(pragmaInput.lookupEvent).calledOnce);
+
+        dispatchEventSpy.restore();
+    });
+
+    it("updateDescriptor, descriptor = error", function() {
+        // Arrange
+        pragmaInput.errorMessage = "Error";
+        pragmaInput.descriptor = "descriptor";
+
+        // Act
+        pragmaInput.updateDescriptor();
+
+        // Assert
+        expect(pragmaInput.descriptor).to.equal("Error");
+    });
+
+    it("updateDescriptor, descriptor = backup", function() {
+        // Arrange
+        pragmaInput.errorMessage = null;
+        pragmaInput.descriptorBackup = "backup";
+        pragmaInput.descriptor = "descriptor";
+
+        // Act
+        pragmaInput.updateDescriptor();
+
+        // Assert
+        expect(pragmaInput.descriptor).to.equal("backup");
+    });
+
+    it("descriptorChanged, set backup", function() {
+        // Arrange
+        pragmaInput.descriptorBackup = null;
+        pragmaInput.descriptor = "test";
+
+        // Act
+        pragmaInput.descriptorChanged();
+
+        // Assert
+        expect(pragmaInput.descriptorBackup).to.equal(pragmaInput.descriptor);
+    });
 });
 
