@@ -74,6 +74,34 @@
         "target": "edtWorkOrder-descriptor",
         "class": "has-error"
       }
+    },
+    {
+      "click": "edtWorkOrder-button"
+    },
+    {
+      "hasNotClass": {
+        "target": "edtWorkOrder-input",
+        "class": "has-error"
+      }
+    },
+    {
+      "hasNotClass": {
+        "target": "edtWorkOrder-descriptor",
+        "class": "has-error"
+      }
+    },
+    {
+      "setAttribute": {
+        "target": "edtWorkOrder",
+        "attribute": "data-attribute",
+        "value": "New Label"
+      }
+    },
+    {
+      "hasAttribute": {
+        "target": "edtWorkOrder",
+        "attribute": "data-attribute"
+      }
     }
   ]
 }

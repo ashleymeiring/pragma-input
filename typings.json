@@ -27,6 +27,7 @@
     "aurelia-templating-router": "github:aurelia/templating-router/dist/aurelia-templating-router.d.ts#68460e0398f896c5883be81588bdd5f3855f05c3",
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "mocha": "registry:dt/mocha#2.2.5+20160619032855",
+    "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654",
     "sinon": "registry:dt/sinon#1.16.0+20160517064723",
     "systemjs": "registry:dt/systemjs#0.19.29+20160608101455"
   },
