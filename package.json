@@ -9,7 +9,7 @@
   "devDependencies": {
     "aurelia-polyfills": "^1.1.0",
     "aurelia-testing": "^1.0.0-beta.2.0.0",
-    "build-utilities": "0.0.88"
+    "build-utilities": "0.0.89"
   },
   "jspm": {
     "dependencies": {
@@ -22,7 +22,7 @@
     "typings": "^1.3.3"
   },
   "scripts": {
-    "audit": "gulp clean:coverage && gulp audit:all && gulp test:coverage && gulp build:all && gulp test:e2e && gulp test:generate-report",
+    "audit": "gulp clean:coverage && gulp audit:all && gulp test:coverage && gulp build:all && gulp test:e2e && gulp test:generate-report && gulp serve:coverage-report",
     "test": "gulp test",
     "test:ui": "gulp build:all && gulp test:e2e",
     "build": "gulp build:all",
