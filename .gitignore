@@ -1,0 +1,8 @@
+app
+coverage
+jspm_packages
+node_modules
+styles
+typings
+chromedriver
+service-worker.js
