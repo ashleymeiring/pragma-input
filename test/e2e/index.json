@@ -59,6 +59,21 @@
         "text": "Text2",
         "target": "assetCodeDisplay"
       }
+    },
+    {
+      "click": "edtWorkOrder-button"
+    },
+    {
+      "hasClass": {
+        "target": "edtWorkOrder-input",
+        "class": "has-error"
+      }
+    },
+    {
+      "hasClass": {
+        "target": "edtWorkOrder-descriptor",
+        "class": "has-error"
+      }
     }
   ]
 }
